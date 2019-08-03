@@ -1,0 +1,38 @@
+package springbootrestapi.dao;
+//DAO Data Access Object
+//Using the Employee Repository and Employee Model you enter data into the DB
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import springbootrestapi.model.Employee;
+import springbootrestapi.repository.EmployeeRepository;
+
+@Service
+public class HeroesDAO {
+	
+//first create the object Employee Repo
+	@Autowired
+	EmployeeRepository employeeRepository;
+	
+	// create an employee
+	public Employee save(Employee emp) {
+		return employeeRepository.save(emp);
+	}
+	
+	//search all employees
+	public List<Employee> findAll(){
+		return employeeRepository.findAll();
+	}
+	//search 1 employee
+	public Employee findById(int empId) {
+		return employeeRepository.findById(empId).get();
+	}
+	// delete an employee
+	public void delete(Employee emp) {
+		employeeRepository.delete(emp);
+	}
+	
+}

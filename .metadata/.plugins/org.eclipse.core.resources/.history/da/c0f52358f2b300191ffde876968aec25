@@ -1,0 +1,83 @@
+package springbootrestapi.controller;
+
+import java.util.List;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import springbootrestapi.dao.HeroesDAO;
+import springbootrestapi.model.Heroes;
+
+//Controller used to Access the DAO
+//This is where all the URLs are and the Postman is used to call these APIs
+@RestController
+@RequestMapping("/company")
+@CrossOrigin(origins="*", allowedHeaders= "*" )
+public class HeroesController {
+//Create DAO object
+	@Autowired
+	HeroesDAO empDao;
+	
+	//save employee to DB
+	@PostMapping("/employees")
+	public Heroes createEmployee(@Valid @RequestBody Heroes emp) {
+		return empDao.save(emp);
+	}
+	
+	@GetMapping("/employees")
+	public List<Heroes> getAllEmployees() {
+		return empDao.findAll();
+	}
+	
+	@GetMapping("/employees/{id}")
+	public ResponseEntity<Heroes> getEmployeeById(@PathVariable(value="id") int empId){
+		Heroes emp = empDao.findById(empId);
+		
+		if(emp == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok().body(emp);
+	}
+	
+	//@CrossOrigin(origins = "http://localhost:8080")
+	@PutMapping("/employees/{id}")
+	public ResponseEntity<Heroes> updateEmployeeById(@PathVariable(value="id") int empId, @RequestBody Heroes empDetails){
+		
+		Heroes emp = empDao.findById(empId);
+		
+			if(emp == null) {
+				return ResponseEntity.notFound().build();
+			}
+			emp.setName(empDetails.getName());
+			emp.setDesignation(empDetails.getDesignation());
+			emp.setExpertise(empDetails.getExpertise());
+			
+			Heroes updateEmployee = empDao.save(emp);
+			return ResponseEntity.ok().body(updateEmployee);
+	}
+	
+	@DeleteMapping("/employees/{id}")
+	public ResponseEntity<Heroes> deleteEmployeeById(@PathVariable(value="id") int empId){
+		Heroes emp = empDao.findById(empId);
+		if(emp == null) {
+			return ResponseEntity.notFound().build();
+		}
+		empDao.delete(emp);
+		
+		return ResponseEntity.ok().build();
+		
+	}
+	
+	
+}

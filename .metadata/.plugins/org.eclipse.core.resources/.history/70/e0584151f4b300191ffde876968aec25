@@ -1,0 +1,83 @@
+package springbootrestapi.controller;
+
+import java.util.List;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import springbootrestapi.dao.HeroesDAO;
+import springbootrestapi.model.Heroes;
+
+//Controller used to Access the DAO
+//This is where all the URLs are and the Postman is used to call these APIs
+@RestController
+@RequestMapping("/company")
+@CrossOrigin(origins="*", allowedHeaders= "*" )
+public class HeroesController {
+//Create DAO object
+	@Autowired
+	HeroesDAO heroDAO;
+	
+	//save hero to DB
+	@PostMapping("/heroes")
+	public Heroes createHeroes(@Valid @RequestBody Heroes hero) {
+		return heroDAO.save(hero);
+	}
+	
+	@GetMapping("/employees")
+	public List<Heroes> getAllHeroes() {
+		return heroDAO.findAll();
+	}
+	
+	@GetMapping("/heroes/{id}")
+	public ResponseEntity<Heroes> getHeroesById(@PathVariable(value="id") int heroId){
+		Heroes hero = heroDAO.findById(heroId);
+		
+		if(hero == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok().body(hero);
+	}
+	
+	//@CrossOrigin(origins = "http://localhost:8080")
+	@PutMapping("/heroes/{id}")
+	public ResponseEntity<Heroes> updateHeroesById(@PathVariable(value="id") int heroId, @RequestBody Heroes heroDetails){
+		
+		Heroes hero = heroDAO.findById(heroId);
+		
+			if(hero == null) {
+				return ResponseEntity.notFound().build();
+			}
+			hero.setName(heroDetails.getName());
+			hero.setDesignation(heroDetails.getDesignation());
+			hero.setExpertise(heroDetails.getExpertise());
+			
+			Heroes updateHeroes = heroDAO.save(hero);
+			return ResponseEntity.ok().body(updateHeroes);
+	}
+	
+	@DeleteMapping("/heroes/{id}")
+	public ResponseEntity<Heroes> deleteHeroesById(@PathVariable(value="id") int heroId){
+		Heroes hero = heroDAO.findById(heroId);
+		if(hero == null) {
+			return ResponseEntity.notFound().build();
+		}
+		heroDAO.delete(hero);
+		
+		return ResponseEntity.ok().build();
+		
+	}
+	
+	
+}
