@@ -1,0 +1,27 @@
+<form (ngSubmit)="createEmployee()"> 
+<h1>Create an Employee</h1>
+  <div class="row">
+  <div class="col">
+      <p>Name</p>
+      <input type="text" placeholder="Name" [(ngModel)]="newEmployee.name" name="name">
+</div>
+</div>
+<div class="row">
+<div class="col">
+  <p>Designation</p>
+  <input type="text" placeholder="Designation" [(ngModel)]="newEmployee.designation" name="designation">
+</div>
+</div>
+<div class="row">
+<div class="col">
+ <p>Expertise</p>
+ <input type="text" placeholder="Expertise" [(ngModel)]="newEmployee.expertise" name="expertise">
+</div>
+</div>
+<div class="row">
+  <div class="col">
+      <button type="submit"  class="btn btn-primary" >Submit</button>
+  </div>
+</div>
+</form>
+

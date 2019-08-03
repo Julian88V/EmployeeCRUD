@@ -1,0 +1,58 @@
+<div class="container" *ngIf="!selected">
+  <div class="row">
+    <div class="col-sm">
+      name
+    </div>
+    <div class="col-sm">
+      designation
+    </div>
+    <div class="col-sm">
+      expertise
+    </div>
+  </div>
+  <div class="row" *ngFor="let employee of employees" (click)= 'selected = employee'>
+    <div class="col-sm">{{employee.name}}</div>
+    <div class="col-sm">{{employee.designation}}</div>
+    <div class="col-sm">{{employee.expertise}} </div>
+  </div>
+  <p>Click on an Employee for Details and to Update or Delete</p>
+</div>
+
+
+ 
+
+ <!-- Update -->
+ <form *ngIf=selected (ngSubmit)="updateEmployeeById(selected)" > 
+  <div class="row">
+      <div class="col">
+          <div >
+              <h4>ID: {{selected.id}}</h4>
+              <p>Name: {{selected.name}}</p>
+              <p>Designation: {{selected.designation}}</p>
+              <p>Expertise: {{selected.expertise}}</p>
+          </div>
+          
+    </div>
+    <div class="col">
+        <p>Update Name</p>
+        <input type="text" placeholder="Name" [(ngModel)]="selected.name" name="name">
+  </div>
+  <div class="col">
+    <p>Update Designation</p>
+    <input type="text" placeholder="Designation" [(ngModel)]="selected.designation" name="designation">
+  </div>
+  <div class="col">
+      <p>Update Expertise</p>
+      <input type="text" placeholder="Expertise" [(ngModel)]="selected.expertise" name="expertise">
+     </div>
+  </div>
+  
+  <div class="row">
+    <div class="col">
+        <button type="submit"  class="btn btn-primary" >Update</button>
+        <button (click)= "deleteEmployeeById(selected.id)">Delete</button>
+    </div>
+  </div>
+  </form> 
+
+  
