@@ -1,3 +1,20 @@
+.background { 
+  /* The image used */
+  background-image: url("https://kbdevstorage1.blob.core.windows.net/asset-blobs/19201_en_1");
+
+  /* Full height */
+  height: 100vh; 
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+ 
+} 
+
+p{
+  color: aliceblue;
+}
+
 .column {
     float: left;
     width: 50%;
