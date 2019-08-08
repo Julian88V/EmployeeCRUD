@@ -10,7 +10,17 @@ MySQL DB has a Company DB with a simple employee Table where the object is given
 ## Visual Studio Code frontend
 Using Angular CLI I generated components of navigation, company, and employee. I generated a model class of employee. Downloaded bootstrap and jquery and placed them in the proper section of the angular.json file. In the api service file I set the api/connections and method requests needed to connect the front end with the backend. Then added the Javascript functions for those functions in the different component.ts files. From there I made the component.html files. I wanted to show that the user could click a tab to send them to another page so I used RouterModule method to do so. Also, I wanted the user to experience clicking on an object and be taken to another page so I added this effect by using the ngIf directive.
 
+## Summary
+This app at the moment allows you to create read update and delete employees. ENJOY!!!
+
 ## Future Development
 The server is currently on localhost:4200 but I am currently ramping back up on AWS so I can put this up publicly.
 I also have plans to add more Java and Javascript code to do more fun things for the user like take a word and output the word in reverse for the user, compute the area of a shape, and build out the DB to connect tables like a department table to make it more of a company app.
 
+![](images/empCrud1.png)
+![](images/empCrud2.png)
+![](images/empCrud3.png)
+![](images/empCrud4.png)
+![](images/empCrud5.png)
+![](images/empCrud6.png)
+![](images/empCrud7.png)
